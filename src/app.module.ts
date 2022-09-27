@@ -10,15 +10,19 @@ import morgan from './configs/morgan.config';
 
 import { SharedModule } from '@shared/shared.module';
 
+import { MarketModule } from '@modules/market/market.module';
+import { OrderBookModule } from '@modules/order-book/order-book.module';
+
 @Module({
   imports: [
     /* Nest/Config Modules */
     ConfigModule.forRoot(),
 
     /* Custom Modules */
-    SharedModule
+    SharedModule,
+    MarketModule,
+    OrderBookModule,
   ],
-  controllers: [],
   providers: [
     {
       provide: APP_INTERCEPTOR,
