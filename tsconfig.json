@@ -16,6 +16,11 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@configs/*":  ["src/configs/*"],
+      "@modules/*":  ["src/app/modules/*"],
+      "@shared/*":  ["src/app/shared/*"],
+    }
   }
 }
