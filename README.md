@@ -30,7 +30,7 @@
     <script>
       const socket = io('http://localhost:3000');
 
-      socket.emit('subscribe_pair', 'BTCUSD');            // BTCUSD | ETHUSD
+      socket.emit('subscribe_pair', 'BTCUSD');            // Send: BTCUSD | ETHUSD
 
       socket.on('listen_orderbook', function(data) {
         console.log('Data OrderBook', data);
@@ -43,9 +43,12 @@
 
 ---
 
-### API Rest
+### Swagger - API Rest
 
+* `npm run start:dev`
+* `http://localhost:3000/apidocs`
 
+---
 
 ### Test
 
