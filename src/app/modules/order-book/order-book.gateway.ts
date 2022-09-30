@@ -3,18 +3,13 @@ import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer, WsExc
 from '@nestjs/websockets';
 import { BitfinexApiService } from '@shared/services/bitfinex-api.service';
 import { Server, Socket } from 'socket.io';
+import { OrderBook } from '@shared/interfaces/order-book.interface';
 import * as ws from 'ws';
 
 export interface PairsRoom {
   pair: string;
   clients: string[];
   webSocket: ws;            // Socket instance
-}
-
-export interface OrderBook {
-  price: number;
-  count: number;
-  amount: number;
 }
 
 @WebSocketGateway({

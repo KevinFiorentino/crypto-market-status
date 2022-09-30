@@ -11,7 +11,7 @@ export class MarketController {
 
   @Post('order')
   @HttpCode(HttpStatus.CREATED)
-  async postOrderPrice(@Body() payload: CreateOrderDTO) {
+  async postPriceAVG(@Body() payload: CreateOrderDTO) {
 
     // Step 1: Validate pair
     const pairsAvailable = await this.api.getPairsList();
@@ -33,7 +33,7 @@ export class MarketController {
 
     if (payload.type == 'buy') {
       // Get price estimate for Buy
-      const order = await this.api.postOrderPrice(payload.pair, payload.amount);
+      const order = await this.api.postPriceAVG(payload.pair, payload.amount);
 
       currentPairPrice = order.data[0];
       totalPrice = currentPairPrice * payload.amount;
@@ -49,7 +49,7 @@ export class MarketController {
 
     } else if (payload.type == 'sell') {
       // Get price estimate for Sell
-      const order = await this.api.postOrderPrice(payload.pair, payload.amount);
+      const order = await this.api.postPriceAVG(payload.pair, payload.amount);
 
       currentPairPrice = order.data[0];
       totalPrice = currentPairPrice * payload.amount;

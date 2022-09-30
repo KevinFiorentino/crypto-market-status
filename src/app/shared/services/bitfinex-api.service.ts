@@ -9,7 +9,7 @@ export class BitfinexApiService {
     private readonly httpService: HttpService
   ) {}
 
-  postOrderPrice(pair: string, amount: number): Promise<any> {
+  postPriceAVG(pair: string, amount: number): Promise<any> {
     return firstValueFrom(
       this.httpService.post(`${process.env.BITFINEX_API}calc/trade/avg?symbol=t${pair}&amount=${amount}`)
     );

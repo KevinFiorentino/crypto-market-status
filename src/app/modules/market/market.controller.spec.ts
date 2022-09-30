@@ -28,9 +28,9 @@ describe('MarketController', () => {
       jest.spyOn(api, 'getPairsList').mockImplementation(() => mockPairList);
 
       const mockOrderPrice = Promise.resolve({ data: [19500, 10] });
-      jest.spyOn(api, 'postOrderPrice').mockImplementation(() => mockOrderPrice);
+      jest.spyOn(api, 'postPriceAVG').mockImplementation(() => mockOrderPrice);
 
-      const response = await controller.postOrderPrice({
+      const response = await controller.postPriceAVG({
         pair: 'BTCUSD',
         type: 'buy',
         amount: 10,
@@ -48,9 +48,9 @@ describe('MarketController', () => {
       jest.spyOn(api, 'getPairsList').mockImplementation(() => mockPairList);
 
       const mockOrderPrice = Promise.resolve({ data: [1300, 10] });
-      jest.spyOn(api, 'postOrderPrice').mockImplementation(() => mockOrderPrice);
+      jest.spyOn(api, 'postPriceAVG').mockImplementation(() => mockOrderPrice);
 
-      const response = await controller.postOrderPrice({
+      const response = await controller.postPriceAVG({
         pair: 'ETHUSD',
         type: 'sell',
         amount: 10,
@@ -67,7 +67,7 @@ describe('MarketController', () => {
         const mockPairList = Promise.resolve({ data: [['BTCUSD', 'ETHUSD', 'XXXUSD']] });
         jest.spyOn(api, 'getPairsList').mockImplementation(() => mockPairList);
 
-        const response = await controller.postOrderPrice({
+        const response = await controller.postPriceAVG({
           pair: 'BTCUSDDDDD',
           type: 'buy',
           amount: 10,
