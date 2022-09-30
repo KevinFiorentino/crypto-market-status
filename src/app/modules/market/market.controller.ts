@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, NotFoundException, BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateOrderDTO } from './market.dto';
 import { BitfinexApiService } from '@shared/services/bitfinex-api.service';
@@ -6,6 +6,10 @@ import { BitfinexApiService } from '@shared/services/bitfinex-api.service';
 @ApiTags('Market')
 @Controller('market')
 export class MarketController {
+
+  // Limit operation (in USD)
+  // We should persist this property dynamically in a BBDD
+  private limit = 100_000;
 
   constructor(
     private readonly api: BitfinexApiService
@@ -29,17 +33,22 @@ export class MarketController {
       throw new NotFoundException(`The pair ${payload.pair} has not been found.`);
 
 
-    // Step 2: Calculate order
+    // Step 2: Calculate effective price
     let currentPairPrice = null;
     let totalPrice = null;
     let response = null;
 
     if (payload.type == 'buy') {
-      // Get price estimate for Buy
+      // Get price for Buy
       const order = await this.api.postPriceAVG(payload.pair, payload.amount);
 
       currentPairPrice = order.data[0];
       totalPrice = currentPairPrice * payload.amount;
+
+      if (totalPrice > this.limit) {
+        const maxAvailable = this.limit / currentPairPrice;
+        throw new BadRequestException(`The order exceeds the maximum amount available for a trade. Max available to BUY: ${maxAvailable} ${payload.pair}`);
+      }
 
       response = {
         pair: payload.pair,
@@ -51,11 +60,16 @@ export class MarketController {
       }
 
     } else if (payload.type == 'sell') {
-      // Get price estimate for Sell
+      // Get price for Sell
       const order = await this.api.postPriceAVG(payload.pair, payload.amount);
 
       currentPairPrice = order.data[0];
       totalPrice = currentPairPrice * payload.amount;
+
+      if (totalPrice > this.limit) {
+        const maxAvailable = this.limit / currentPairPrice;
+        throw new BadRequestException(`The order exceeds the maximum amount available for a trade. Max available to SELL: ${maxAvailable} ${payload.pair}`);
+      }
 
       response = {
         pair: payload.pair,

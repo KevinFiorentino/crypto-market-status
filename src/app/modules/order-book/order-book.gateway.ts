@@ -73,18 +73,17 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
     client.join(pair);
 
 
-    // Step 3: Find if room exist
+    // Step 3: Find if room already exist
     const pairActive = this.pairRooms.findIndex((p: PairsRoom) => {
       return p.pair == pair;
     });
 
     if (pairActive == -1) {
-      // Step 4: Create pair and socket streaming
+      // Step 4: Create pair in array and socket stream
 
-      // Enable socket for all clients listening the pair
+      // Enable socket for all clients listen the pair
       const w = new ws('wss://api-pub.bitfinex.com/ws/2');
 
-      // https://docs.bitfinex.com/reference/ws-public-books
       w.on('message', (msg) => {
         const stream = JSON.parse(msg.toString());
 
@@ -111,7 +110,7 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
 
         const response = { pair, orderBook };
 
-        this.server.to(pair).emit('listen_orderbook', response);
+        this.server.to(pair).emit('listen_orderbook', response);        // Emit information
       });
 
       // Listen pair and start the stream

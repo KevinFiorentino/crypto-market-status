@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { HttpModule } from '@nestjs/axios';
 import { MarketController } from '@modules/market/market.controller';
@@ -27,18 +27,18 @@ describe('MarketController', () => {
       const mockPairList = Promise.resolve({ data: [['BTCUSD', 'ETHUSD', 'XXXUSD']] });
       jest.spyOn(api, 'getPairsList').mockImplementation(() => mockPairList);
 
-      const mockOrderPrice = Promise.resolve({ data: [19500, 10] });
+      const mockOrderPrice = Promise.resolve({ data: [19500, 2.5] });
       jest.spyOn(api, 'postPriceAVG').mockImplementation(() => mockOrderPrice);
 
       const response = await controller.postPriceAVG({
         pair: 'BTCUSD',
         type: 'buy',
-        amount: 10,
+        amount: 2.5,
       });
 
       const totalToPay = response.result.data.totalToPay;
 
-      expect(195000).toBe(totalToPay);
+      expect(48750).toBe(totalToPay);
     });
 
 
@@ -73,8 +73,28 @@ describe('MarketController', () => {
           amount: 10,
         });
 
-      } catch (error) {
-        expect(error).toBeInstanceOf(NotFoundException);
+      } catch (err) {
+        expect(err).toBeInstanceOf(NotFoundException);
+      }
+    });
+
+
+    it('Should return a max order exceeds', async () => {
+      try {
+        const mockPairList = Promise.resolve({ data: [['BTCUSD', 'ETHUSD', 'XXXUSD']] });
+        jest.spyOn(api, 'getPairsList').mockImplementation(() => mockPairList);
+
+        const mockOrderPrice = Promise.resolve({ data: [19500, 1000] });
+        jest.spyOn(api, 'postPriceAVG').mockImplementation(() => mockOrderPrice);
+
+        const response = await controller.postPriceAVG({
+          pair: 'BTCUSD',
+          type: 'buy',
+          amount: 1000,
+        });
+
+      } catch (err) {
+        expect(err).toBeInstanceOf(BadRequestException);
       }
     });
 

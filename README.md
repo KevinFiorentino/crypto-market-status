@@ -23,14 +23,16 @@
 
 * `npm run start:dev`
 ```html
+<!DOCTYPE html>
 <html>
   <head></head>
   <body>
-    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    <h1>See the console!</h1>
+    <script src='https://cdn.socket.io/4.3.2/socket.io.min.js' integrity='sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs' crossorigin='anonymous'></script>
     <script>
       const socket = io('http://localhost:3000');
 
-      socket.emit('subscribe_pair', 'BTCUSD');            // Send: BTCUSD | ETHUSD
+      socket.emit('subscribe_pair', 'BTCUSD');            // BTCUSD | ETHUSD
 
       socket.on('listen_orderbook', function(data) {
         console.log('Data OrderBook', data);
@@ -39,7 +41,7 @@
   </body>
 </html>
 ```
-* `python3 -m http.server`
+* Fast server: `python3 -m http.server`
 
 ---
 
