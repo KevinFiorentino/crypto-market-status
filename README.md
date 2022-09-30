@@ -39,6 +39,7 @@
   </body>
 </html>
 ```
+* `python3 -m http.server`
 
 ---
 
@@ -48,4 +49,4 @@
 
 ### Test
 
-
+* `npm run test`

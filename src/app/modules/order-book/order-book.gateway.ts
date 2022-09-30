@@ -8,7 +8,7 @@ import * as ws from 'ws';
 export interface PairsRoom {
   pair: string;
   clients: string[];
-  webSocket: ws;
+  webSocket: ws;            // Socket instance
 }
 
 export interface OrderBook {
@@ -18,9 +18,7 @@ export interface OrderBook {
 }
 
 @WebSocketGateway({
-  cors: {
-    origin: '*',
-  }
+  cors: { origin: '*' }
 })
 export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
 
@@ -34,10 +32,12 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
     private readonly api: BitfinexApiService
   ) {}
 
+  // Init server
   afterInit(server: any) {
     this.pairRooms = [];
   }
 
+  // After disconnect a client
   handleDisconnect(client: Socket) {
     // Remove client from pairsRoom
     this.pairRooms = this.pairRooms.map((p, i) => {
@@ -71,7 +71,7 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
       });
 
     if (!validatePair || validatePair == -1)
-      throw new WsException(`The pair ${pair} has not been found.`);
+      throw new WsException({ event: 'error', message: `The pair ${pair} has not been found.` });
 
 
     // Step 2: Join client to room
@@ -119,7 +119,7 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
         this.server.to(pair).emit('listen_orderbook', response);
       });
 
-      // Listening pair and start the streaming
+      // Listen pair and start the stream
       let msg = JSON.stringify({
         event: 'subscribe',
         channel: 'book',
@@ -135,7 +135,7 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
       });
 
     } else {
-      // Step 4: Update pair if exist and push the new client listening
+      // Step 4: Update pair if exist and push the new client to listen
       const p = this.pairRooms[pairActive];
       p.clients.push(client.id);
       this.pairRooms.splice(pairActive, 1, p);

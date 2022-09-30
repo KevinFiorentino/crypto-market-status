@@ -11,19 +11,19 @@ export class BitfinexApiService {
 
   postOrderPrice(pair: string, amount: number): Promise<any> {
     return firstValueFrom(
-      this.httpService.post(`https://api-pub.bitfinex.com/v2/calc/trade/avg?symbol=t${pair}&amount=${amount}`)
+      this.httpService.post(`${process.env.BITFINEX_API}calc/trade/avg?symbol=t${pair}&amount=${amount}`)
     );
   }
 
   getPairsList(): Promise<any> {
     return firstValueFrom(
-      this.httpService.get(`https://api-pub.bitfinex.com/v2/conf/pub:list:pair:exchange`)
+      this.httpService.get(`${process.env.BITFINEX_API}conf/pub:list:pair:exchange`)
     );
   }
 
   getOrderBookInfo(pair: string): Promise<any> {
     return firstValueFrom(
-      this.httpService.get(`https://api-pub.bitfinex.com/v2/book/t${pair}/P0?len=25`)
+      this.httpService.get(`${process.env.BITFINEX_API}book/t${pair}/P0?len=25`)
     );
   }
 
