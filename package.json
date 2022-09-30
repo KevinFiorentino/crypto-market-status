@@ -84,6 +84,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@configs/(.*)$": "<rootDir>/../src/configs/$1",
+      "^@modules/(.*)$": "<rootDir>/../src/app/modules/$1",
+      "^@shared/(.*)$": "<rootDir>/../src/app/shared/$1"
+    }
   }
 }
