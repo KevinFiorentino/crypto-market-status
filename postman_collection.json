@@ -44,7 +44,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"pair\": \"BTCUSD\",\n    \"type\": \"sell\",\n    \"amount\": 100\n}",
+					"raw": "{\n    \"pair\": \"BTCUSD\",\n    \"type\": \"buy\",\n    \"amount\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
