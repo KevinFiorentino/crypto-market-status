@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  backend-membrane:
+    restart: always
+    build: .
+    image: backend-membrane
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+
+  nginx-backend-membrane:
+    restart: always
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d/
