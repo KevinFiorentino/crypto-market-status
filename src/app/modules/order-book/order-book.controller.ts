@@ -1,5 +1,5 @@
 import { Controller, Get, Body, HttpCode, HttpStatus, NotFoundException } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { GetOrderBookDTO } from './order-book.dto';
 import { BitfinexApiService } from '@shared/services/bitfinex-api.service';
 import { OrderBook } from '@shared/interfaces/order-book.interface';
@@ -13,6 +13,7 @@ export class OrderBookController {
   ) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get better prices for bid/ask' })
   @HttpCode(HttpStatus.CREATED)
   async postOrderPrice(@Body() payload: GetOrderBookDTO) {
 

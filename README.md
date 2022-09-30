@@ -19,7 +19,7 @@
 
 ---
 
-### WebSocket
+### WebSocket OrderBook
 
 * `npm run start:dev`
 ```html
@@ -47,6 +47,7 @@
 
 * `npm run start:dev`
 * `http://localhost:3000/apidocs`
+* Or see `postman_collection.json` in the project root
 
 ---
 

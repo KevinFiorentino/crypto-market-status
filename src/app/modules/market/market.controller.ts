@@ -1,5 +1,5 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, NotFoundException, InternalServerErrorException } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateOrderDTO } from './market.dto';
 import { BitfinexApiService } from '@shared/services/bitfinex-api.service';
 
@@ -12,6 +12,7 @@ export class MarketController {
   ) {}
 
   @Post('order')
+  @ApiOperation({ summary: 'Get order - effective price' })
   @HttpCode(HttpStatus.CREATED)
   async postPriceAVG(@Body() payload: CreateOrderDTO) {
 
