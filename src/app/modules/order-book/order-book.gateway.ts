@@ -84,7 +84,7 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
     });
 
     if (pairActive == -1) {
-      // Create pair and socket streaming
+      // Step 4: Create pair and socket streaming
 
       // Enable socket for all clients listening the pair
       const w = new ws('wss://api-pub.bitfinex.com/ws/2');
@@ -135,7 +135,7 @@ export class OrderBookGateway implements OnGatewayInit, OnGatewayDisconnect {
       });
 
     } else {
-      // Update pair if exist and push the new client listening
+      // Step 4: Update pair if exist and push the new client listening
       const p = this.pairRooms[pairActive];
       p.clients.push(client.id);
       this.pairRooms.splice(pairActive, 1, p);
