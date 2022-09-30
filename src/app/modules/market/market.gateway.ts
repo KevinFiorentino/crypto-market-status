@@ -19,9 +19,9 @@ export class MarketGateway {
     return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
   } */
 
-  @SubscribeMessage('identity')
+  /* @SubscribeMessage('identity')
   async getMarket(@MessageBody() data: any): Promise<any> {
     return 'market';
-  }
+  } */
 
 }
