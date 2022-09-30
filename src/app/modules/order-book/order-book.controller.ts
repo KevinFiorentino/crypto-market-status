@@ -37,6 +37,7 @@ export class OrderBookController {
     const ask: OrderBook[] = [];
 
     ob.data.forEach(e => {
+      // Amount > 0 = bid | Amount <= 0 = ask
       if (e[2] > 0) {
         bid.push({
           price: e[0],
