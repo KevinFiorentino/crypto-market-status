@@ -21,6 +21,9 @@
 
 ### WebSocket OrderBook
 
+- The socket emits cotizations of a pair (BTCUSD | ETHUSD) as long as there is at least a client listening.
+- It can emit multiple pairs in parallel.
+
 * `npm run start:dev`
 ```html
 <!DOCTYPE html>
@@ -32,7 +35,7 @@
     <script>
       const socket = io('http://localhost:3000');
 
-      socket.emit('subscribe_pair', 'BTCUSD');            // BTCUSD | ETHUSD
+      socket.emit('subscribe_pair', 'BTCUSD');            // Config pair: BTCUSD | ETHUSD
 
       socket.on('listen_orderbook', function(data) {
         console.log('Data OrderBook', data);

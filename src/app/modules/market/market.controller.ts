@@ -16,7 +16,7 @@ export class MarketController {
   ) {}
 
   @Post('order')
-  @ApiOperation({ summary: 'Get order - effective price' })
+  @ApiOperation({ summary: 'Get effective price of an order' })
   @HttpCode(HttpStatus.CREATED)
   async postPriceAVG(@Body() payload: CreateOrderDTO) {
 

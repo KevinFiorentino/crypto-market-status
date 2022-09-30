@@ -13,7 +13,7 @@ export class OrderBookController {
   ) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get better prices for bid/ask' })
+  @ApiOperation({ summary: 'Get better prices for bid/ask of a pair' })
   @HttpCode(HttpStatus.CREATED)
   async postOrderPrice(@Body() payload: GetOrderBookDTO) {
 
