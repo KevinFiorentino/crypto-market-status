@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { SharedModule } from '@shared/shared.module';
 
 import { MarketController } from './market.controller';
-import { MarketGateway } from './market.gateway';
 
 @Module({
   imports: [
@@ -11,9 +10,7 @@ import { MarketGateway } from './market.gateway';
   controllers: [
     MarketController,
   ],
-  providers: [
-    MarketGateway,
-  ],
+  providers: [],
   exports: []
 })
 export class MarketModule {}

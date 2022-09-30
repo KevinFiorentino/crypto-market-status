@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Query, Body, HttpCode, HttpStatus, NotFoundException, InternalServerErrorException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { Controller, Post, Body, HttpCode, HttpStatus, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateOrderDTO } from './market.dto';
 import { BitfinexApiService } from '@shared/services/bitfinex-api.service';
 
