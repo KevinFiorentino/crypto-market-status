@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsNumber, IsIn } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsPositive, IsIn } from 'class-validator';
 
 export type TypeOrder = 'buy' | 'sell';
 
@@ -13,6 +13,7 @@ export class CreateOrderDTO {
   readonly type: string;
 
   @IsNumber()
+  @IsPositive()
   @IsNotEmpty()
   readonly amount: number;
 }

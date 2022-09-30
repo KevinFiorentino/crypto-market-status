@@ -22,28 +22,55 @@ export class MarketController {
         return p == payload.pair;
       });
 
-    if (!validatePair || validatePair == -1)
+    if (validatePair == null || validatePair == -1)
       throw new NotFoundException(`The pair ${payload.pair} has not been found.`);
 
 
-    // Step 2: Get order price estimate
-    const order = await this.api.postOrderPrice(payload.pair, payload.amount);
+    // Step 2: Calculate order
+    let currentPairPrice = null;
+    let totalPrice = null;
+    let response = null;
 
-    // Step 3: Calculate buy or sell
     if (payload.type == 'buy') {
+      // Get price estimate for Buy
+      const order = await this.api.postOrderPrice(payload.pair, payload.amount);
+
+      currentPairPrice = order.data[0];
+      totalPrice = currentPairPrice * payload.amount;
+
+      response = {
+        pair: payload.pair,
+        typeOperation: payload.type,
+        amount: payload.amount,
+        currentPairPrice,
+        totalToPay: totalPrice,
+        expirationTime: '5s'
+      }
 
     } else if (payload.type == 'sell') {
+      // Get price estimate for Sell
+      const order = await this.api.postOrderPrice(payload.pair, payload.amount);
+
+      currentPairPrice = order.data[0];
+      totalPrice = currentPairPrice * payload.amount;
+
+      response = {
+        pair: payload.pair,
+        typeOperation: payload.type,
+        amount: payload.amount,
+        currentPairPrice,
+        totalToReceive: totalPrice,
+        expirationTime: '5s'
+      }
 
     } else {
       throw new InternalServerErrorException(`Something went wrong.`);
     }
 
-
-    console.log(order.data)
-
-
-
-    return { statusCode: HttpStatus.CREATED, result: { data: order.data } };
+    return {
+      statusCode: HttpStatus.CREATED,
+      result: { data: response }
+    }
   }
 
 }

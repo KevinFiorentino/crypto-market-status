@@ -36,9 +36,9 @@ describe('MarketController', () => {
         amount: 10,
       });
 
-      const totalPrice = response.result.data.totalPrice;
+      const totalToPay = response.result.data.totalToPay;
 
-      expect(195000).toBe(totalPrice);
+      expect(195000).toBe(totalToPay);
     });
 
 
@@ -56,9 +56,9 @@ describe('MarketController', () => {
         amount: 10,
       });
 
-      const totalPrice = response.result.data.totalPrice;
+      const totalToReceive = response.result.data.totalToReceive;
 
-      expect(-13000).toBe(totalPrice);
+      expect(13000).toBe(totalToReceive);
     });
 
 

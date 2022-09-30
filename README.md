@@ -19,6 +19,33 @@
 
 ---
 
-### API & WebSocket
+### WebSocket
+
+* `npm run start:dev`
+```html
+<html>
+  <head></head>
+  <body>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    <script>
+      const socket = io('http://localhost:3000');
+
+      socket.emit('subscribe_pair', 'BTCUSD');            // BTCUSD | ETHUSD
+
+      socket.on('listen_orderbook', function(data) {
+        console.log('Data OrderBook', data);
+      });
+    </script>
+  </body>
+</html>
+```
+
+---
+
+### API Rest
+
+
 
 ### Test
+
+
