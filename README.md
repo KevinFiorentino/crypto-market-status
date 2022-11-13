@@ -1,6 +1,6 @@
-# Market Status API REST
+# Crypto Market Status
 
-## Technical interview - Membrane Backend
+## See order books, cotizations, and crypto pairs
 
 ### Install App
 

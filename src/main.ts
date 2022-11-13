@@ -19,8 +19,8 @@ async function bootstrap() {
 
   // Config Swagger
   const config = new DocumentBuilder()
-    .setTitle('Backend Membrane - API')
-    .setDescription('Challenge Membrane Backend - Market Status API REST')
+    .setTitle('Crypto Market Status')
+    .setDescription('See order books, cotizations and, crypto pairs')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

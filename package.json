@@ -1,7 +1,7 @@
 {
-  "name": "backend-membrane",
+  "name": "crypto-market-status",
   "version": "0.0.1",
-  "description": "Challenge Membrane Backend - Market Status API REST",
+  "description": "See order books, cotizations, and crypto pairs",
   "author": "Kevin Fiorentino",
   "private": true,
   "license": "MIT",
